@@ -1,6 +1,7 @@
 # 🍲 Recipe Dredger (Mealie & Tandoor)
 
 ![Python](https://img.shields.io/badge/python-3.x-blue?style=flat-square)
+![Docker](https://img.shields.io/badge/Docker-Supported-blue?style=flat-square)
 ![Mealie](https://img.shields.io/badge/Support-Mealie-orange?style=flat-square)
 ![Tandoor](https://img.shields.io/badge/Support-Tandoor-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
@@ -20,21 +21,8 @@ This script automates the process of finding **new** recipes. It scans a curated
 ## 📋 Prerequisites
 
 * A self-hosted instance of [Mealie](https://mealie.io/) OR [Tandoor](https://docs.tandoor.dev/).
-* Python 3.8+
+* Python 3.8+ OR Docker.
 * API Tokens for your services.
-
-## 🛠️ Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/D0rk4ce/mealie-recipe-dredger.git](https://github.com/D0rk4ce/mealie-recipe-dredger.git)
-    cd mealie-recipe-dredger
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
 
 ## ⚙️ Configuration
 
@@ -54,19 +42,31 @@ TANDOOR_URL = "[http://192.168.1.101:8080](http://192.168.1.101:8080)"
 TANDOOR_API_KEY = "your_tandoor_key_here"
 ```
 
-## 🏃 Usage
+## 🏃 Usage (Python)
 
-Run the script manually:
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Run the script:
+   ```bash
+   python mealie_dredger.py
+   ```
+
+## 🐳 Usage (Docker)
+
+1. **Edit the Config:** Open `mealie_dredger.py` and fill in your details.
+2. **Build & Run:**
+   ```bash
+   docker-compose up --build
+   ```
+
+### Docker Automation (Cron)
+You can run the container on a schedule using your host system's crontab:
 
 ```bash
-python mealie_dredger.py
-```
-
-### Automation (Cron)
-To keep your recipe book constantly updated, set this up as a weekly cron job:
-
-```bash
-0 3 * * 0 /usr/bin/python3 /path/to/mealie_dredger.py >> /path/to/logs/mealie_import.log 2>&1
+# Run every Sunday at 3am
+0 3 * * 0 cd /path/to/mealie-recipe-dredger && docker-compose up
 ```
 
 ## ⚠️ Disclaimer & Ethics
