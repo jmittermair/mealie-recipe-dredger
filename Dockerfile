@@ -8,7 +8,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the script
-COPY mealie_dredger.py .
+COPY dredger.py .
 
 # Run the script
-CMD ["python", "mealie_dredger.py"]
+CMD ["python", "dredger.py"]
