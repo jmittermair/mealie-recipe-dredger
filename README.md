@@ -65,7 +65,7 @@ If you prefer to run the script manually without Docker:
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/d0rk4ce/mealie-recipe-dredger.git
-    cd recipe-dredger
+    cd mealie-recipe-dredger
     ```
 
 2.  **Install dependencies:**
