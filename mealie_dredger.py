@@ -2,19 +2,24 @@ import requests
 import time
 import json
 from bs4 import BeautifulSoup
+import os
 
 # --- CONFIGURATION ---
-# ⚠️ REPLACE THESE WITH YOUR OWN DETAILS
+# The script checks for Environment Variables (Docker) first. 
+# If not found, it defaults to the values on the right.
+
+def str_to_bool(v):
+    return str(v).lower() in ("yes", "true", "t", "1")
 
 # Mealie Settings
-MEALIE_ENABLED = True
-MEALIE_URL = "http://YOUR_MEALIE_IP:9000"  # e.g. http://192.168.1.100:9000
-MEALIE_API_TOKEN = "YOUR_MEALIE_TOKEN"     # User Profile -> Manage API Tokens
+MEALIE_ENABLED = str_to_bool(os.getenv('MEALIE_ENABLED', 'True'))
+MEALIE_URL = os.getenv('MEALIE_URL', 'http://192.168.1.100:9000')
+MEALIE_API_TOKEN = os.getenv('MEALIE_API_TOKEN', 'your_mealie_token_here')
 
 # Tandoor Settings
-TANDOOR_ENABLED = False                    # Set to True to enable
-TANDOOR_URL = "http://YOUR_TANDOOR_IP:8080"
-TANDOOR_API_KEY = "YOUR_TANDOOR_KEY"       # Settings -> API Tokens
+TANDOOR_ENABLED = str_to_bool(os.getenv('TANDOOR_ENABLED', 'False'))
+TANDOOR_URL = os.getenv('TANDOOR_URL', 'http://192.168.1.101:8080')
+TANDOOR_API_KEY = os.getenv('TANDOOR_API_KEY', 'your_tandoor_key_here')
 
 # 🛑 GENERAL SETTINGS
 DRY_RUN = False               # Set to True to test without importing

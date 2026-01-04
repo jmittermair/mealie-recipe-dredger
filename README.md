@@ -1,14 +1,8 @@
 # 🍲 Recipe Dredger (Mealie & Tandoor)
 
-![Python](https://img.shields.io/badge/python-3.x-blue?style=flat-square)
-![Docker](https://img.shields.io/badge/Docker-Supported-blue?style=flat-square)
-![Mealie](https://img.shields.io/badge/Target-Mealie-green?style=flat-square)
-![Tandoor](https://img.shields.io/badge/Experimental-Tandoor-yellow?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
+A bulk-import automation tool to populate your self-hosted recipe managers with high-quality recipes.
 
-**A bulk-import automation tool to populate your self-hosted recipe managers with high-quality recipes.**
-
-> ⚠️ **Note regarding Tandoor:** This script was built and tested specifically for **Mealie**. Tandoor support was added via community request and is currently **untested** by the author. If you use Tandoor, please report your results in the Issues tab!
+> **⚠️ Note regarding Tandoor:** This script was built and tested specifically for **Mealie**. Tandoor support was added via community request and is currently **untested** by the author. If you use Tandoor, please report your results in the Issues tab!
 
 This script automates the process of finding **new** recipes. It scans a curated list of high-quality food blogs, detects new posts via sitemaps, checks if you already have them in your library, and imports them automatically.
 
@@ -20,61 +14,76 @@ This script automates the process of finding **new** recipes. It scans a curated
 * **Deep Sitemap Scanning:** Automatically parses XML sitemaps to find the most recent posts.
 * **Curated Source List:** Comes pre-loaded with over 100+ high-quality food blogs covering African, Caribbean, East Asian, Latin American, and General Western cuisines.
 
-## 📋 Prerequisites
+## 🐳 Quick Start (Docker)
 
-* A self-hosted instance of [Mealie](https://mealie.io/) OR [Tandoor](https://docs.tandoor.dev/).
-* Python 3.8+ OR Docker.
-* API Tokens for your services.
+The most efficient way to run the Dredger is using Docker. You do not need to clone the repository or install Python.
 
-## ⚙️ Configuration
+1.  Create a `docker-compose.yml` file:
 
-Open `mealie_dredger.py` in your text editor. You **must** update the configuration block at the top of the file to enable the services you want to use.
-
-```python
-# --- CONFIGURATION ---
-
-# Mealie Settings
-MEALIE_ENABLED = True
-MEALIE_URL = "[http://192.168.1.100:9000](http://192.168.1.100:9000)"
-MEALIE_API_TOKEN = "your_mealie_token_here"
-
-# Tandoor Settings
-TANDOOR_ENABLED = False  # Change to True to enable
-TANDOOR_URL = "[http://192.168.1.101:8080](http://192.168.1.101:8080)"
-TANDOOR_API_KEY = "your_tandoor_key_here"
+```yaml
+services:
+  recipe-dredger:
+    image: ghcr.io/d0rk4ce/recipe-dredger:latest
+    container_name: recipe-dredger
+    environment:
+      - MEALIE_ENABLED=true
+      - MEALIE_URL=http://192.168.1.X:9000
+      - MEALIE_API_TOKEN=your_mealie_token
+      - TANDOOR_ENABLED=false
+      - TANDOOR_URL=http://192.168.1.X:8080
+      - TANDOOR_API_KEY=your_tandoor_key
+    restart: "no"
 ```
 
-## 🏃 Usage (Python)
+2.  Run the tool:
+    ```bash
+    docker compose up
+    ```
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Run the script:
-   ```bash
-   python mealie_dredger.py
-   ```
-
-## 🐳 Usage (Docker)
-
-1. **Edit the Config:** Open `mealie_dredger.py` and fill in your details.
-2. **Build & Run:**
-   ```bash
-   docker-compose up --build
-   ```
-
-### Docker Automation (Cron)
-You can run the container on a schedule using your host system's crontab:
+### Scheduling (Cron)
+To run this weekly (e.g., Sundays at 3am), add an entry to your host's crontab:
 
 ```bash
-# Run every Sunday at 3am
-0 3 * * 0 cd /path/to/mealie-recipe-dredger && docker-compose up
+0 3 * * 0 cd /path/to/docker-compose-folder && docker compose up
 ```
+
+## ⚙️ Configuration Variables
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `MEALIE_ENABLED` | `true` | Set to `false` to disable Mealie imports. |
+| `MEALIE_URL` | N/A | Your local Mealie URL (e.g. `http://192.168.1.5:9000`). |
+| `MEALIE_API_TOKEN` | N/A | Found in Mealie User Settings > Manage API Tokens. |
+| `TANDOOR_ENABLED` | `false` | Set to `true` to enable Tandoor imports. |
+| `TANDOOR_URL` | N/A | Your local Tandoor URL. |
+| `TANDOOR_API_KEY` | N/A | Your Tandoor API key. |
+
+## 🐍 Manual Usage (Python)
+
+If you prefer to run the script manually without Docker:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/d0rk4ce/recipe-dredger.git
+    cd recipe-dredger
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Configure:**
+    Open `mealie_dredger.py` and edit the default values in the `CONFIGURATION` block, or export environment variables in your terminal.
+
+4.  **Run:**
+    ```bash
+    python mealie_dredger.py
+    ```
 
 ## ⚠️ Disclaimer & Ethics
 
-This tool is intended for personal archiving and self-hosting purposes.
-
+* This tool is intended for personal archiving and self-hosting purposes.
 * **Be Polite:** The script includes delays (`time.sleep`) to prevent overloading site servers. Do not remove these delays.
 * **Respect Creators:** Please continue to visit the original blogs to support the content creators who make these recipes possible.
 
