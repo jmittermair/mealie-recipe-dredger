@@ -35,6 +35,8 @@ services:
       - TANDOOR_URL=[http://192.168.1.](http://192.168.1.)X:8080
       - TANDOOR_API_KEY=your_tandoor_key
       - SCRAPE_LANG=en  # Change to 'es', 'fr', etc.
+      # Optional: Override the built-in site list
+      - SITES=[https://example.com](https://example.com),[https://another-blog.com](https://another-blog.com)
     restart: "no"
 ```
 
@@ -61,6 +63,7 @@ To run this weekly (e.g., Sundays at 3am), add an entry to your host's crontab:
 | `TANDOOR_URL` | N/A | Your local Tandoor URL. |
 | `TANDOOR_API_KEY` | N/A | Your Tandoor API key. |
 | `SCRAPE_LANG` | `en` | The 2-letter ISO code for the language to scrape. |
+| `SITES` | (Curated List) | A comma-separated list of blog URLs to scrape (overrides the built-in list). |
 
 ## 🐍 Manual Usage (Python)
 

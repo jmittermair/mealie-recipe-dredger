@@ -30,7 +30,8 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 DetectorFactory.seed = 0
 
 # 🏆 THE CURATED LIST
-SITES = [
+# Default list if no environment variable is provided
+DEFAULT_SITES = [
     # --- AFRICAN & SOUL FOOD ---
     "https://www.africanbites.com", "https://lowcarbafrica.com", "https://cheflolaskitchen.com",
     "https://www.myforkinglife.com", "https://grandbaby-cakes.com", "https://divascancook.com",
@@ -97,6 +98,16 @@ SITES = [
     "https://www.ditchedthewheat.com", "https://www.healthylittlefoodies.com", "https://www.superhealthykids.com",
     "https://www.yummytoddlerfood.com", "https://www.forkandbeans.com", "https://www.chocolatecoveredkatie.com"
 ]
+
+# Check for environment variable override
+env_sites = os.getenv('SITES')
+if env_sites:
+    # Split by comma and strip whitespace
+    SITES = [s.strip() for s in env_sites.split(',') if s.strip()]
+    print(f"📋 Loaded {len(SITES)} sites from Environment Variable.")
+else:
+    SITES = DEFAULT_SITES
+    print(f"📋 Loaded {len(SITES)} default curated sites.")
 
 # --- HELPERS ---
 
