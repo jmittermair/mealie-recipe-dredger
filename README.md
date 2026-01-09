@@ -36,7 +36,7 @@ services:
       - TANDOOR_API_KEY=your_tandoor_key
       - SCRAPE_LANG=en,de  # Supports comma-separated lists
       # Optional: Override the built-in site list
-      - SITES=[https://example.com](https://example.com),[https://another-blog.com](https://another-blog.com)
+      - SITES=https://example.com,https://another-blog.com
     restart: "no"
 ```
 
@@ -71,7 +71,7 @@ If you prefer to run the script manually without Docker:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/d0rk4ce/mealie-recipe-dredger.git](https://github.com/d0rk4ce/mealie-recipe-dredger.git)
+    git clone https://github.com/d0rk4ce/mealie-recipe-dredger.git
     cd mealie-recipe-dredger
     ```
 
