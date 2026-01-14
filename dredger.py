@@ -5,6 +5,8 @@ import os
 import subprocess
 import warnings 
 from bs4 import BeautifulSoup
+from bs4.builder import XMLParsedAsHTMLWarning
+import warnings
 from langdetect import detect, DetectorFactory
 
 # Prevent the "XMLParsedAsHTMLWarning"
